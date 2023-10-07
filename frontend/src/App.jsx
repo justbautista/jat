@@ -1,9 +1,10 @@
 import "./App.css";
+import Dashboard from "./pages/Dashboard.jsx";
 
 function App() {
   return (
     <>
-      <h1>JAT</h1>
+       <Dashboard />
     </>
   );
 }
