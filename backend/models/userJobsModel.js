@@ -1,6 +1,7 @@
+const mongoose = require("monogoose");
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema(
+const userJobsSchema = new mongoose.Schema(
   {
     _id: { type: String },
     applied_date: { type: Date },
@@ -10,3 +11,7 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+const UserJobs = mongoose.model("UserJobs", userJobsSchema);
+
+module.exports = { UserJobs };
