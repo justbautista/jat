@@ -1,20 +1,35 @@
-import React from "react";
 import JATlogo from "../../images/JAT.png"
 import "../styles/NavBar.css"
+import { Link } from "react-router-dom"
+import LoginButton from "./LoginButton"
+import LogoutButton from "./LogoutButton"
+import { useAuth0 } from "@auth0/auth0-react"
 
 function NavBar() {
-  return (
-    <nav className="p-4">
-      <div className="container mx-auto flex justify-between items-center">
-      <a href="#"><img src={JATlogo} alt="JAT logo" className="w-30 h-20" /></a>
-        <ul className="flex space-x-4">
-          <li><a href="#" className="text-black">Home</a></li>
-          <li><a href="#" className="text-black">About</a></li>
-          <li><a href="#" className="text-black">How It Works</a></li>
-        </ul>
-      </div>
-    </nav>
-  );
+	const { isAuthenticated } = useAuth0()
+
+	return (
+		<nav className="p-4">
+			<div className="container mx-auto flex justify-between items-center">
+				<a href="#">
+					<img src={JATlogo} alt="JAT logo" className="w-30 h-20" />
+				</a>
+				<ul className="flex space-x-4">
+					<Link to="/about" />
+					{isAuthenticated ? (
+						<>
+							<Link to="/dashboard">Dashboard</Link>
+							<LogoutButton />
+						</>
+					) : (
+                        <>
+                            <LoginButton />
+                        </>
+                    )}
+				</ul>
+			</div>
+		</nav>
+	)
 }
 
-export default NavBar;
+export default NavBar
