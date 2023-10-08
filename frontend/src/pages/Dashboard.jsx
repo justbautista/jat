@@ -35,6 +35,7 @@ export default function Dashboard() {
 				})
 				setUserExist(true)
 				setUserData(response.data)
+                localStorage.setItem("user", user)
 			} catch (err) {
 				//Pull up form
 				try {
