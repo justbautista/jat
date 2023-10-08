@@ -9,23 +9,6 @@ export default function Dashboard() {
 	const { user } = useAuth0()
 	const [jobsApplied, setJobsApplied] = useState([])
 	const [userExist, setUserExist] = useState(false)
-<<<<<<< HEAD
-    const [userData, setUserData] = useState()
-
-	useEffect(() => {
-		const checkUser = async () => {
-            try {
-                const response = await api.post("/api/users/", {
-                    email: user.email,
-                })
-                setUserExist(true)
-                setUserData(response.data)
-            } catch (err) {
-                // pull up form
-                console.error(err)
-            }
-		}
-=======
 	const [userData, setUserData] = useState()
 
 	const updateJobStatus = async (state) => {
@@ -69,7 +52,6 @@ export default function Dashboard() {
 
 		checkUser()
 	}, [])
->>>>>>> 9e24ca5178fe000df455971c6139de1d1688c046
 
 	useEffect(() => {
 		if (!userExist) return
@@ -107,8 +89,6 @@ export default function Dashboard() {
 						: 0}
 					/{userData && userData.dailyLimit}
 				</h1>
-				<SideBar jobsApplied={jobsApplied} />
-				<JobList jobsApplied={jobsApplied} />
 			</div>
 		</>
 	)
