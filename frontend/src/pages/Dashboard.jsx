@@ -11,14 +11,14 @@ function Dashboard() {
 
 	useEffect(() => {
 		const getJobsApplied = async () => {
-		    try {
-		        const response = await api.post("/api/users/jobs", {
-		            email: user.email
-		        })
-		        setJobsApplied(response.data)
-		    } catch (err) {
-		        console.error(err)
-		    }
+			try {
+				const response = await api.post("/api/users/jobs", {
+					email: user.email,
+				})
+				setJobsApplied(response.data)
+			} catch (err) {
+				console.error(err)
+			}
 		}
 
 		getJobsApplied()
