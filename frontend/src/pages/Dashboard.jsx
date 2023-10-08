@@ -90,7 +90,9 @@ export default function Dashboard() {
 		<>
 			<NavBar />
 
-			<div className="flex flex-row">
+			<div className="flex flex-col">
+				<SideBar jobsApplied={jobsApplied} />
+                <JobList className="jobtable" jobsApplied={jobsApplied} />
 				<h1>
 					Longest Streak:{" "}
 					{userData && userData.longestStreak
@@ -108,7 +110,7 @@ export default function Dashboard() {
       width="100%"
       height="400px"
       data={timeline}
-      options={{title: "Your Job Application Calender"}}
+      options={{title: "Your Job Application Calendar"}}
     />
 			</div>
 		</>
