@@ -11,40 +11,54 @@ export default function Dashboard() {
 	const [userExist, setUserExist] = useState(false)
     const [userData, setUserData] = useState()
 
-	useEffect(() => {
-		const checkUser = async () => {
-            try {
-                const response = await api.post("/api/users/", {
-                    email: user.email,
-                })
-                setUserExist(true)
-                setUserData(response.data)
-            } catch (err) {
-                // pull up form
-                console.error(err)
-            }
-		}
+	// useEffect(() => {
+	// 	const checkUser = async () => {
+    //         try {
+    //             const response = await api.post("/api/users/", {
+    //                 email: user.email,
+    //             })
+    //             setUserExist(true)
+    //             setUserData(response.data)
+    //         } catch (err) {
+    //             // pull up form
+    //             console.error(err)
+    //         }
+	// 	}
 
-        checkUser()
-	}, [])
+    //     checkUser()
+	// }, [])
 
-	useEffect(() => {
-        if (!userExist) return
+	// useEffect(() => {
+    //     if (!userExist) return
 
-		const getJobsApplied = async () => {
-			try {
-				const response = await api.post("/api/users/getJobsByUserId", {
-					id: userData._id 
-				})
-				setJobsApplied(response.data)
-			} catch (err) {
-				console.error(err)
-			}
-		}
+	// 	const getJobsApplied = async () => {
+	// 		try {
+	// 			const response = await api.post("/api/users/getJobsByUserId", {
+	// 				id: userData._id 
+	// 			})
+	// 			setJobsApplied(response.data)
+	// 		} catch (err) {
+	// 			console.error(err)
+	// 		}
+	// 	}
 
-		getJobsApplied()
-	}, [userExist])
+	// 	getJobsApplied()
+	// }, [userExist])
 
+    useEffect(() => {
+        const example = [{
+            "_id": "652236940421878ae7128661",
+            "companyName": "Google",
+            "jobTitle": "Software Engineer Intern",
+            "referenceId": "10",
+            "jobDescription": "software engineer",
+            "dateApplied": "2023-10-08T04:56:37.350Z",
+            "stage": "applied",
+            "userApplied": "652236860421878ae712865e",
+            "__v": 0
+        }]
+        setJobsApplied(example)
+    })
 	return (
 		<div>
 			<NavBar />
