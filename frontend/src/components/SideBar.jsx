@@ -38,15 +38,18 @@ export default function SideBar({ jobsApplied }) {
 
 
 
-    return (
-        <div>
-            <p>{user.name}</p>
-            <p>Applied: {stats["applied"]}</p>
-            <p>Interviewing: {stats["interviewing"]}</p>
-            <p>Rejected: {stats["rejected"]}</p>
-            <p>Accepted: {stats["accepted"]}</p>
-        </div>
-    )
+ 
+        return (
+            <div className="sidebar ml-12 text-xl mx-auto">
+                <p className="underline p-3">Your Stats </p>
+              <p>{user.name}</p>
+              <p>Applied: {stats["applied"]}</p>
+              <p>Interviewing: {stats["interviewing"]}</p>
+              <p>Rejected: {stats["rejected"]}</p>
+              <p>Accepted: {stats["accepted"]}</p>
+            </div>
+          )
+    
 
     
 }

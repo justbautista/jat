@@ -2,11 +2,16 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@font-face {
+  font-family: 'Young Serif';
+  src: url('path/to/youngserif-regular.woff2') format('woff2'),
+       url('path/to/youngserif-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 
 body {
-    font-family: 'Anton', sans-serif;
+    font-family: 'Young Serif', serif;
     background-color: #dedee3;
     height : 100vh;
 }
@@ -24,4 +29,12 @@ hr{
     border-bottom-right-radius: 5px;
   }
 
+  .sidebar {
+    border: 5px solid #ccc;
+    padding: 1rem;
+    width: fit-content;
+    border-color: #000000;
+    border-radius: 5px;
+    background-color: #B8B8B8;
+  }
   

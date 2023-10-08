@@ -1,5 +1,4 @@
 import JATlogo from "../../images/JAT.png"
-import "../styles/NavBar.css"
 import { Link } from "react-router-dom"
 import LoginButton from "./LoginButton"
 import LogoutButton from "./LogoutButton"
@@ -15,10 +14,9 @@ function NavBar() {
 					<img src={JATlogo} alt="JAT logo" className="w-30 h-20" />
 				</a>
 				<ul className="flex space-x-4">
-					<Link to="/about" />
 					{isAuthenticated ? (
 						<>
-							<Link to="/dashboard">Dashboard</Link>
+							<Link  className="bg-black hover:bg-slate-400 text-white hover:text-black  py-2 px-4 rounded" to="/dashboard">Dashboard</Link>
 							<LogoutButton />
 						</>
 					) : (
