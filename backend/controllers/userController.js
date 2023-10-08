@@ -90,6 +90,18 @@ const getJobsById = async (req, res) => {
 // @ desc Add a job for the user
 // @ route POST /api/users/jobs
 // @ access Public
+
+
+const generateStreakCalender = async (req, res)=>{
+  const { _id } = req.body;
+  try{
+    const job = await UserJobs.find({userApplied:id});
+    res.status(200).json(job); 
+  }catch(error) {
+    res.status(404).json({"Error":"Error with the database, Cannot find jobs."});
+  }
+}
+
 const addJobs = async (req, res) => {
   try {
     const {
