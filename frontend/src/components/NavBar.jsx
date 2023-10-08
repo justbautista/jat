@@ -17,6 +17,7 @@ function NavBar() {
 					{isAuthenticated ? (
 						<>
 							<Link  className="bg-black hover:bg-slate-400 text-white hover:text-black  py-2 px-4 rounded" to="/dashboard">Dashboard</Link>
+							<Link  className="bg-black hover:bg-slate-400 text-white hover:text-black  py-2 px-4 rounded" to="/jobpostings">Job Postings</Link>
 							<LogoutButton />
 						</>
 					) : (

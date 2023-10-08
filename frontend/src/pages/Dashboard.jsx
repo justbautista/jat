@@ -58,7 +58,7 @@ export default function Dashboard() {
             "__v": 0
         }]
         setJobsApplied(example)
-    })
+    }, [])
 	return (
         <>
 			<NavBar />
