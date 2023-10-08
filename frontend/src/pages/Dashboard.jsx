@@ -10,6 +10,21 @@ export default function Dashboard() {
 	const [jobsApplied, setJobsApplied] = useState([])
 	const [userExist, setUserExist] = useState(false)
     const [userData, setUserData] = useState()
+
+	// useEffect(() => {
+	// 	const checkUser = async () => {
+    //         try {
+    //             const response = await api.post("/api/users/", {
+    //                 email: user.email,
+    //             })
+    //             setUserExist(true)
+    //             setUserData(response.data)
+    //         } catch (err) {
+    //             // pull up form
+    //             console.error(err)
+    //         }
+	// 	}
+
 	const updateJobStatus = async (state) => {
 		try {
 			const response = await api.put("/api/users/jobs", {
@@ -22,6 +37,7 @@ export default function Dashboard() {
 			console.error(err)
 		}
 	}
+  
 	useEffect(() => {
 		const checkUser = async () => {
             try {
@@ -48,32 +64,51 @@ export default function Dashboard() {
 				}
 		}
 
-        checkUser()
-	}, [])
+    //     checkUser()
+	// }, [])
 
-	useEffect(() => {
-        if (!userExist) return
+	// useEffect(() => {
+    //     if (!userExist) return
 
-		const getJobsApplied = async () => {
-			try {
-				const response = await api.post("/api/users/getJobsByUserId", {
-					id: userData._id 
-				})
-				setJobsApplied(response.data)
-			} catch (err) {
-				console.error(err)
-			}
-		}
+	// 	const getJobsApplied = async () => {
+	// 		try {
+	// 			const response = await api.post("/api/users/getJobsByUserId", {
+	// 				id: userData._id 
+	// 			})
+	// 			setJobsApplied(response.data)
+	// 		} catch (err) {
+	// 			console.error(err)
+	// 		}
+	// 	}
 
-		getJobsApplied()
-	}, [userExist])
+	// 	getJobsApplied()
+	// }, [userExist])
 
+    useEffect(() => {
+        const example = [{
+            "_id": "652236940421878ae7128661",
+            "companyName": "Google",
+            "jobTitle": "Software Engineer Intern",
+            "referenceId": "10",
+            "jobDescription": "software engineer",
+            "dateApplied": "2023-10-08T04:56:37.350Z",
+            "userApplied": "652236860421878ae712865e",
+            "stage": "applied",
+            "__v": 0
+        }]
+        setJobsApplied(example)
+    }, [])
 	return (
-		<div>
+        <>
 			<NavBar />
+
+		<div className="flex flex-row">
+			<SideBar  jobsApplied={jobsApplied} />
+			<JobList className="jobtable" jobsApplied={jobsApplied} />
 			<h1>Longest Streak: {userData && userData.longestStreak ? userData.longestStreak : 0}, Current Streak: {userData && userData.streaks ? userData.streaks : 0}, {userData && userData.todayStreak?userData.todayStreak:0}/{userData && ((userData.dailyLimit ))}</h1>
 			<SideBar jobsApplied={jobsApplied} />
 			<JobList jobsApplied={jobsApplied} />
 		</div>
-	)
+        </>
+	)	
 }

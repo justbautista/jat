@@ -6,12 +6,12 @@ export default function Job({
 	jobDescription,
 }) {
 	return (
-		<div>
-			<p>{companyName}</p>
-			<p>{jobTitle}</p>
-			<p>{stage}</p>
-			<p>{dateApplied}</p>
-			<p>{jobDescription}</p>
-		</div>
+        <tr>
+			<td>{companyName}</td>
+			<td>{jobTitle}</td>
+			<td>{stage}</td>
+			<td>{dateApplied}</td>
+			<td>{jobDescription}</td>
+        </tr>
 	)
 }
