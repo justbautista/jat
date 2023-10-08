@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     type: Number,
   },
   preferences: [{ type: String }],
-  jobsApplied: [{ type: mongoose.Schema.Types.ObjectId, ref: "UserJobs" }],
+  jobsApplied: [{ type: String }],
   recentApplicationDate: { type: Date },
   streaks: {
     type: Number,

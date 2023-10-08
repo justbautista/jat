@@ -96,7 +96,7 @@ const addJobs = async (req, res) => {
       referenceId,
       userApplied: userApplied._id,
     });
-    userApplied.jobsApplied.push(newJob._id);
+    userApplied.jobsApplied.push(referenceId);
     // const mostRecentTime = new Date(userApplied.recentApplicationDate);
     // const millisecondsInADay = 2 * 24 * 60 * 60 * 1000;
     // userApplied.recentApplicationDate = date;
