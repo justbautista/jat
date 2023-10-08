@@ -157,12 +157,21 @@ const addJobs = async (req, res) => {
       userApplied.todayStreak = userApplied.todayStreak + 1
     }
     else{
+      if(userApplied.todayStreak >= userApplied.dailyLimit){
+        var newStreak = userApplied.streaks + 1
+        if(newStreak > userApplied.longestStreaks){
+          userApplied.longestStreaks = newStreak
+        }
+        if(diff < 48){
+          userApplied.streaks = newStreak
+        }else{
+          userApplied.streaks = 0
+        }
+      }else{
+        userApplied.streaks = 0
+      }
       userApplied.today = new Date()
       userApplied.todayStreak = 1
-      if(userApplied.streaks > userApplied.longestStreaks){
-        userApplied.longestStreaks = userApplied.streaks
-      }
-      userApplied.streaks = 0
 
     }
     userApplied.save();
