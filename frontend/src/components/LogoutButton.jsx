@@ -5,7 +5,8 @@ export default function LogoutButton() {
 
     return (
         <>
-            <button onClick={() => logout({ logoutParams: { returnTo: import.meta.env.VITE_REDIRECT_URI } })}>Logout</button>
+            <button className="bg-black hover:bg-slate-400 text-white hover:text-black py-2 px-4 rounded" onClick={() => logout({ logoutParams: { returnTo: import.meta.env.VITE_REDIRECT_URI } })}>Logout</button>
+            
         </>
     )
 }

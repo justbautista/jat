@@ -65,5 +65,5 @@ export default function Dashboard() {
 			<SideBar jobsApplied={jobsApplied} />
 			<JobList jobsApplied={jobsApplied} />
 		</div>
-	)
+	)	
 }
