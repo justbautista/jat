@@ -72,9 +72,9 @@ const addJobs = async (req, res) => {
 const changeJobStatus = async (req, res) => {
   const { _id, stage } = req.body;
   try {
-    const objectId = new mongoose.Types.ObjectId(_id);
+    // const objectId = new mongoose.Types.ObjectId(_id);
     const job = await UserJobs.findOne({
-      _id: objectId,
+      _id: _id,
     });
     job.stage = stage;
     await job.save();

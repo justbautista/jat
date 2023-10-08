@@ -8,9 +8,11 @@ const port = process.env.PORT || 5001;
 connectDB();
 const app = express();
 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/api/users", userRoutes);
+app.use("/api/jobs", jobRoutes);
 app.get("/", (req, res) => res.send("API running"));
-app.get("/api/users", userRoutes);
-app.get("/api/jobs", jobRoutes);
+
 app.listen(port, () => console.log(`Server Started on Port:${port}`));
