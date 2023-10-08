@@ -25,6 +25,45 @@ export default function Dashboard() {
     //         }
 	// 	}
 
+	const updateJobStatus = async (state) => {
+		try {
+			const response = await api.put("/api/users/jobs", {
+				_id: userData._id,
+				stage:state
+			})
+			setUserExist(true)
+			setUserData(response.data)
+		} catch (err) {
+			console.error(err)
+		}
+	}
+  
+	useEffect(() => {
+		const checkUser = async () => {
+            try {
+                const response = await api.post("/api/users/", {
+                    email: user.email,
+                })
+                setUserExist(true)
+                setUserData(response.data)
+            } catch (err) {
+                  //Pull up form
+				try {
+					const response = await api.post("/api/users/register", {
+						name: user.name,
+						email:user.email,
+						dailyLimit:5
+					})
+					console.log(response.data)
+					setUserData(response.data)
+					setUserExist(true)
+				}catch(err) {
+					console.error(err)
+				}
+					console.error(err)
+				}
+		}
+
     //     checkUser()
 	// }, [])
 
@@ -62,9 +101,13 @@ export default function Dashboard() {
 	return (
         <>
 			<NavBar />
+
 		<div className="flex flex-row">
 			<SideBar  jobsApplied={jobsApplied} />
 			<JobList className="jobtable" jobsApplied={jobsApplied} />
+			<h1>Longest Streak: {userData && userData.longestStreak ? userData.longestStreak : 0}, Current Streak: {userData && userData.streaks ? userData.streaks : 0}, {userData && userData.todayStreak?userData.todayStreak:0}/{userData && ((userData.dailyLimit ))}</h1>
+			<SideBar jobsApplied={jobsApplied} />
+			<JobList jobsApplied={jobsApplied} />
 		</div>
         </>
 	)	
