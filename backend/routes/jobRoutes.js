@@ -57,6 +57,14 @@ jobRoutes.get('/get_synthetic_companies', async function (req, res) {
 	}
 	res.send(companies)
 })
+// Cannot work with actual data. Needs to have a seperate list for this purpose
+jobRoutes.get('/get_synthetic_titles', async function (req, res) {
+	var titles = []
+	for(let job of jobPostings) {
+		titles.push(job.title)
+	}
+	res.send(titles)
+})
 
 jobRoutes.get('/get_synthetic_locations', async function (req, res) {
 	var locations = []

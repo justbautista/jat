@@ -13,6 +13,12 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  school: {
+    type: String,
+  },
+  dailyLimit: {
+    type: Number,
+  },
   preferences: [{ type: String }],
   jobsApplied: [{ type: mongoose.Schema.Types.ObjectId, ref: "UserJobs" }],
   recentApplicationDate: { type: Date },
