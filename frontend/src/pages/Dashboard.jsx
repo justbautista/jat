@@ -11,7 +11,6 @@ export default function Dashboard() {
 	const [jobsApplied, setJobsApplied] = useState([])
 	const [userExist, setUserExist] = useState(false)
 	const [userData, setUserData] = useState()
-	const [changedStage, setChangedStage] = useState(false);
 	console.log(userData);
 	const [timeline, setTimeline] = useState()
 	const updateJobStatus = async (state) => {

@@ -1,7 +1,7 @@
 import { User } from "@auth0/auth0-react";
 import Job from "./Job";
 
-export default function JobList({ jobsApplied, updateJobStatus }) {
+export default function JobList({ jobsApplied, setJobsApplied }) {
   return (
     <>
       <table className="table-auto">
@@ -36,7 +36,7 @@ export default function JobList({ jobsApplied, updateJobStatus }) {
                   stage={job["stage"]}
                   dateApplied={job["dateApplied"]}
                   jobDescription={job["jobDescription"]}
-                  updateJobStatus={updateJobStatus}
+                  setJobsApplied={setJobsApplied}
                   // setJobsApplied={setJobsApplied}
                 />
               ))

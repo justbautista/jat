@@ -4,6 +4,7 @@ import { useEffect } from "react"
 export default function LoginButton() {
 	const { loginWithRedirect } = useAuth0()
 
+
     // useEffect(() => {
     //     if (localStorage.getItem("user")) {
     //         loginWithRedirect()
