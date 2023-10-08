@@ -203,4 +203,13 @@ const changeJobStatus = async (req, res) => {
 //   }
 // };
 
-module.exports = { registerUser, addJobs, changeJobStatus, generateStreakCalender };
+module.exports = {
+  registerUser,
+  updateUser,
+  getUser,
+  getJobsByUserId,
+  getJobsById,
+  addJobs,
+  changeJobStatus,
+  generateStreakCalender,
+};
