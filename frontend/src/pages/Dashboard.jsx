@@ -4,13 +4,14 @@ import api from "../helpers/axiosConfig"
 import SideBar from "../components/SideBar"
 import { useAuth0 } from "@auth0/auth0-react"
 import JobList from "../components/JobList"
+import { Chart } from "react-google-charts";
 
 export default function Dashboard() {
 	const { user } = useAuth0()
 	const [jobsApplied, setJobsApplied] = useState([])
 	const [userExist, setUserExist] = useState(false)
 	const [userData, setUserData] = useState()
-
+	const [timeline, setTimeline] = useState()
 	const updateJobStatus = async (state) => {
 		try {
 			const response = await api.put("/api/users/jobs", {
@@ -62,6 +63,16 @@ export default function Dashboard() {
 					id: userData._id,
 				})
 				setJobsApplied(response.data)
+
+				try{
+					const calres = await api.post("/api/users/timeline",{
+						id: userData._id,
+					})
+					console.log(calres.data.cal)
+					setTimeline(calres.data.cal)
+				} catch(e){
+					console.error(e)
+				}
 			} catch (err) {
 				console.error(err)
 			}
@@ -75,9 +86,7 @@ export default function Dashboard() {
 			<NavBar />
 
 			<div className="flex flex-row">
-				<SideBar jobsApplied={jobsApplied} />
-				<JobList className="jobtable" jobsApplied={jobsApplied} />
-				<h1>
+				<div><h1>
 					Longest Streak:{" "}
 					{userData && userData.longestStreak
 						? userData.longestStreak
@@ -88,9 +97,18 @@ export default function Dashboard() {
 						? userData.todayStreak
 						: 0}
 					/{userData && userData.dailyLimit}
-				</h1>
+				</h1></div>
 				<SideBar jobsApplied={jobsApplied} />
-				<JobList jobsApplied={jobsApplied} />
+				<JobList className="jobtable" jobsApplied={jobsApplied} />
+				<Chart
+      chartType="Calendar"
+      width="100%"
+      height="400px"
+      data={timeline}
+      options={{title: "Your Job Application Calender"}}
+    />
+				{/* <SideBar jobsApplied={jobsApplied} />
+				<JobList jobsApplied={jobsApplied} /> */}
 			</div>
 		</>
 	)
