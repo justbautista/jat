@@ -2,11 +2,15 @@ const { User } = require("../models/userModel");
 const { UserJobs } = require("../models/userJobsModel");
 const mongoose = require("mongoose");
 // @ desc Login user
-// @ route POST /api/users/register
+// @ route POST /api/users/
 // @ access Public
 const registerUser = async (req, res) => {
   const { name, email, preferences, school, dailyLimit } = req.body;
-
+    const checkUser = await User.findOne({ email: email });
+    if (checkUser) {
+      res.status(200).json(checkUser);
+      return;
+    }
   try {
     const user = await User.create({
       name,
