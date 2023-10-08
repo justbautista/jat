@@ -10,7 +10,7 @@ function NavBar() {
 
 	return (
 		<nav className="p-4">
-			<div className="container mx-auto flex justify-between items-center">
+			<div className="container mx-auto flex justify-between items-center ">
 				<a href="#">
 					<img src={JATlogo} alt="JAT logo" className="w-30 h-20" />
 				</a>
@@ -28,6 +28,7 @@ function NavBar() {
                     )}
 				</ul>
 			</div>
+            <br />
 		</nav>
 	)
 }
