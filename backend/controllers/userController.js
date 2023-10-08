@@ -107,18 +107,28 @@ const generateStreakCalender = async (req, res)=>{
   try {
     const job = await UserJobs.find({ userApplied: id });
     console.log(job);
-    jobApplication = {};
+    jobApplication = [];
     for (let j of job) {
       let d = new Date(j.dateApplied);
-      let key = d.toJSON().split("T")[0];
       if (jobApplication[key]) {
-        jobApplication[key].push(j);
+        jobApplication[d].push(j);
       } else {
-        jobApplication[key] = [j];
+        jobApplication[d] = [j];
       }
     }
+    var final = [[{
+      type: "date",
+      id: "Date",
+    },
+    {
+      type: "number",
+      id: "Applied",
+    }]]
+    for(let date of Object.keys(jobApplication)) {
+      final.push([date, jobApplication[date].length])
+    }
 
-    res.status(200).send(jobApplication);
+    res.status(200).send({dates:jobApplication,cal:final});
   } catch (error) {
     res
       .status(404)

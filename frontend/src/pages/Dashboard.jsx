@@ -1,54 +1,57 @@
-import NavBar from "../components/NavBar";
-import { useState, useEffect } from "react";
-import api from "../helpers/axiosConfig";
-import SideBar from "../components/SideBar";
-import { useAuth0 } from "@auth0/auth0-react";
-import JobList from "../components/JobList";
+import NavBar from "../components/NavBar"
+import { useState, useEffect } from "react"
+import api from "../helpers/axiosConfig"
+import SideBar from "../components/SideBar"
+import { useAuth0 } from "@auth0/auth0-react"
+import JobList from "../components/JobList"
+import { Chart } from "react-google-charts";
 
 export default function Dashboard() {
-  const { user } = useAuth0();
-  const [jobsApplied, setJobsApplied] = useState([]);
-  const [userExist, setUserExist] = useState(false);
-  const [userData, setUserData] = useState();
-  const [changedStage, setChangedStage] = useState(false);
-  console.log(userData);
-  const updateJobStatus = async (state) => {
-    try {
-      const response = await api.put("/api/users/jobs", {
-        _id: userData._id,
-        stage: state,
-      });
-      setUserExist(true);
-      setUserData(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  useEffect(() => {
-    const checkUser = async () => {
-      try {
-        const response = await api.post("/api/users/", {
-          email: user.email,
-        });
-        setUserExist(true);
-        setUserData(response.data);
-      } catch (err) {
-        //Pull up form
-        try {
-          const response = await api.post("/api/users/register", {
-            name: user.name,
-            email: user.email,
-            dailyLimit: 5,
-          });
-          console.log(response.data);
-          setUserData(response.data);
-          setUserExist(true);
-        } catch (err) {
-          console.error(err);
-        }
-        console.error(err);
-      }
-    };
+	const { user } = useAuth0()
+	const [jobsApplied, setJobsApplied] = useState([])
+	const [userExist, setUserExist] = useState(false)
+	const [userData, setUserData] = useState()
+	const [changedStage, setChangedStage] = useState(false);
+	console.log(userData);
+	const [timeline, setTimeline] = useState()
+	const updateJobStatus = async (state) => {
+		try {
+			const response = await api.put("/api/users/jobs", {
+				_id: userData._id,
+				stage: state,
+			})
+			setUserExist(true)
+			setUserData(response.data)
+		} catch (err) {
+			console.error(err)
+		}
+	}
+
+	useEffect(() => {
+		const checkUser = async () => {
+			try {
+				const response = await api.post("/api/users/", {
+					email: user.email,
+				})
+				setUserExist(true)
+				setUserData(response.data)
+			} catch (err) {
+				//Pull up form
+				try {
+					const response = await api.post("/api/users/register", {
+						name: user.name,
+						email: user.email,
+						dailyLimit: 5,
+					})
+					console.log(response.data)
+					setUserData(response.data)
+					setUserExist(true)
+				} catch (err) {
+					console.error(err)
+				}
+				console.error(err)
+			}
+		}
 
     checkUser();
   }, []);
@@ -56,44 +59,58 @@ export default function Dashboard() {
   useEffect(() => {
     if (!userExist) return;
 
-    const getJobsApplied = async () => {
-      try {
-        const response = await api.post("/api/users/getJobsByUserId", {
-          id: userData._id,
-        });
-        setJobsApplied(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
+		const getJobsApplied = async () => {
+			try {
+				const response = await api.post("/api/users/getJobsByUserId", {
+					id: userData._id,
+				})
+				setJobsApplied(response.data)
+				try{
+					const calres = await api.post("/api/users/timeline",{
+						id: userData._id,
+					})
+					console.log(calres.data.cal)
+					setTimeline(calres.data.cal)
+				} catch(e){
+					console.error(e)
+				}
+			} catch (err) {
+				console.error(err)
+			}
+		}
 
     getJobsApplied();
   }, [userExist]);
 
-  return (
-    <>
-      <NavBar />
-      {/* <div className="flex flex-row"> */}
-      {/* <SideBar jobsApplied={jobsApplied} />
-        <JobList
-          className="jobtable"
-          jobsApplied={jobsApplied}
-        /> */}
-      <h1>
-        Longest Streak:
-        {userData && userData.longestStreak ? userData.longestStreak : 0},
-        Current Streak: {userData && userData.streaks ? userData.streaks : 0},{" "}
-        {userData && userData.todayStreak ? userData.todayStreak : 0}/
-        {userData && userData.dailyLimit}
-      </h1>
-      <SideBar jobsApplied={jobsApplied} changedStage={changedStage} />
-      <JobList
-        jobsApplied={jobsApplied}
-        updateJobStatus={updateJobStatus}
-        setChangedStage={setChangedStage}
-        // setJobsApplied={setJobsApplied}
-      />
-      {/* </div> */}
-    </>
-  );
+	return (
+		<>
+			<NavBar />
+
+			<div className="flex flex-row">
+				<SideBar jobsApplied={jobsApplied} />
+				<JobList className="jobtable" jobsApplied={jobsApplied} />
+				<h1>
+					Longest Streak:{" "}
+					{userData && userData.longestStreak
+						? userData.longestStreak
+						: 0}
+					, Current Streak:{" "}
+					{userData && userData.streaks ? userData.streaks : 0},{" "}
+					{userData && userData.todayStreak
+						? userData.todayStreak
+						: 0}
+					/{userData && userData.dailyLimit}
+				</h1>
+				<SideBar jobsApplied={jobsApplied} />
+				<JobList jobsApplied={jobsApplied} />
+				<Chart
+      chartType="Calendar"
+      width="100%"
+      height="400px"
+      data={timeline}
+      options={{title: "Your Job Application Calender"}}
+    />
+			</div>
+		</>
+	)
 }

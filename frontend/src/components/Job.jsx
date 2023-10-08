@@ -27,7 +27,7 @@ export default function Job({
 
       // setUserData(response.data);
       setCurrStage(state);
-      setChangedStage(true);
+      setChangedStage(prev => !prev);
       // setJobsApplied(response.data);
       // console.log(userData);
     } catch (err) {
