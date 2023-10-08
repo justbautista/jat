@@ -9,6 +9,7 @@ export default function Dashboard() {
 	const { user } = useAuth0()
 	const [jobsApplied, setJobsApplied] = useState([])
 	const [userExist, setUserExist] = useState(false)
+<<<<<<< HEAD
     const [userData, setUserData] = useState()
 
 	useEffect(() => {
@@ -24,48 +25,91 @@ export default function Dashboard() {
                 console.error(err)
             }
 		}
+=======
+	const [userData, setUserData] = useState()
 
-    //     checkUser()
-	// }, [])
+	const updateJobStatus = async (state) => {
+		try {
+			const response = await api.put("/api/users/jobs", {
+				_id: userData._id,
+				stage: state,
+			})
+			setUserExist(true)
+			setUserData(response.data)
+		} catch (err) {
+			console.error(err)
+		}
+	}
 
-	// useEffect(() => {
-    //     if (!userExist) return
+	useEffect(() => {
+		const checkUser = async () => {
+			try {
+				const response = await api.post("/api/users/", {
+					email: user.email,
+				})
+				setUserExist(true)
+				setUserData(response.data)
+			} catch (err) {
+				//Pull up form
+				try {
+					const response = await api.post("/api/users/register", {
+						name: user.name,
+						email: user.email,
+						dailyLimit: 5,
+					})
+					console.log(response.data)
+					setUserData(response.data)
+					setUserExist(true)
+				} catch (err) {
+					console.error(err)
+				}
+				console.error(err)
+			}
+		}
 
-	// 	const getJobsApplied = async () => {
-	// 		try {
-	// 			const response = await api.post("/api/users/getJobsByUserId", {
-	// 				id: userData._id 
-	// 			})
-	// 			setJobsApplied(response.data)
-	// 		} catch (err) {
-	// 			console.error(err)
-	// 		}
-	// 	}
+		checkUser()
+	}, [])
+>>>>>>> 9e24ca5178fe000df455971c6139de1d1688c046
 
-	// 	getJobsApplied()
-	// }, [userExist])
+	useEffect(() => {
+		if (!userExist) return
 
-    useEffect(() => {
-        const example = [{
-            "_id": "652236940421878ae7128661",
-            "companyName": "Google",
-            "jobTitle": "Software Engineer Intern",
-            "referenceId": "10",
-            "jobDescription": "software engineer",
-            "dateApplied": "2023-10-08T04:56:37.350Z",
-            "userApplied": "652236860421878ae712865e",
-            "stage": "applied",
-            "__v": 0
-        }]
-        setJobsApplied(example)
-    })
+		const getJobsApplied = async () => {
+			try {
+				const response = await api.post("/api/users/getJobsByUserId", {
+					id: userData._id,
+				})
+				setJobsApplied(response.data)
+			} catch (err) {
+				console.error(err)
+			}
+		}
+
+		getJobsApplied()
+	}, [userExist])
+
 	return (
-        <>
+		<>
 			<NavBar />
-		<div className="flex flex-row">
-			<SideBar  jobsApplied={jobsApplied} />
-			<JobList className="jobtable" jobsApplied={jobsApplied} />
-		</div>
-        </>
-	)	
+
+			<div className="flex flex-row">
+				<SideBar jobsApplied={jobsApplied} />
+				<JobList className="jobtable" jobsApplied={jobsApplied} />
+				<h1>
+					Longest Streak:{" "}
+					{userData && userData.longestStreak
+						? userData.longestStreak
+						: 0}
+					, Current Streak:{" "}
+					{userData && userData.streaks ? userData.streaks : 0},{" "}
+					{userData && userData.todayStreak
+						? userData.todayStreak
+						: 0}
+					/{userData && userData.dailyLimit}
+				</h1>
+				<SideBar jobsApplied={jobsApplied} />
+				<JobList jobsApplied={jobsApplied} />
+			</div>
+		</>
+	)
 }
