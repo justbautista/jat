@@ -7,73 +7,16 @@ export default function JobPostingList() {
 	const [allJobPostings, setAllJobPostings] = useState([])
 
 	useEffect(() => {
-		// const getJobs = async () => {
-		//     try {
-		//         const response = await api.get("/api/jobs/list_synthetic_jobs")
-		//         setAllJobPostings(response.data)
-		//     } catch (err) {
-		//         console.error(err)
-		//     }
-		// }
+		const getJobs = async () => {
+			try {
+				const response = await api.get("/api/jobs/list_synthetic_jobs")
+				setAllJobPostings(response.data)
+			} catch (err) {
+				console.error(err)
+			}
+		}
 
-		// getJobs()
-
-		const test = [
-			{
-				"job_id": 1,
-				"job_title": "Software Engineer",
-				"company": "TechCo Inc.",
-				"location": "San Francisco, CA",
-				"job_description":
-					"TechCo Inc. is seeking a talented Software Engineer to join our dynamic team...",
-				"requirements": [
-					"Bachelor's degree in Computer Science or related field",
-					"3+ years of experience in software development",
-					"Proficiency in Java, Python, or C++",
-					"Strong problem-solving skills",
-					"Excellent communication skills",
-				],
-				"responsibilities": [
-					"Design and implement software solutions",
-					"Collaborate with cross-functional teams",
-					"Troubleshoot and debug software issues",
-					"Participate in code reviews",
-					"Stay updated with the latest industry trends",
-				],
-				"application_instructions":
-					"To apply, please send your resume and cover letter to hr@techco.com",
-				"posted_date": "2023-10-07",
-				"application_deadline": "2023-10-21",
-			},
-            {
-				"job_id": 1,
-				"job_title": "Software Engineer",
-				"company": "TechCo Inc.",
-				"location": "San Francisco, CA",
-				"job_description":
-					"TechCo Inc. is seeking a talented Software Engineer to join our dynamic team...",
-				"requirements": [
-					"Bachelor's degree in Computer Science or related field",
-					"3+ years of experience in software development",
-					"Proficiency in Java, Python, or C++",
-					"Strong problem-solving skills",
-					"Excellent communication skills",
-				],
-				"responsibilities": [
-					"Design and implement software solutions",
-					"Collaborate with cross-functional teams",
-					"Troubleshoot and debug software issues",
-					"Participate in code reviews",
-					"Stay updated with the latest industry trends",
-				],
-				"application_instructions":
-					"To apply, please send your resume and cover letter to hr@techco.com",
-				"posted_date": "2023-10-07",
-				"application_deadline": "2023-10-21",
-			},
-		]
-
-		setAllJobPostings(test)
+		getJobs()
 	}, [])
 
 	return (

@@ -34,7 +34,7 @@ export default function SideBar({ jobsApplied }) {
 		}
 
 		getStats()
-	}, [])
+	}, [jobsApplied])
 
 	return (
 		<div className="sidebar">
