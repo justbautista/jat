@@ -9,6 +9,7 @@ const registerUser = async (req, res) => {
     const checkUser = await User.findOne({ email: email });
     if (checkUser) {
       res.status(200).json(checkUser);
+      return;
     }
   try {
     const user = await User.create({
