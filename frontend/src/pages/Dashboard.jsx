@@ -53,17 +53,19 @@ export default function Dashboard() {
             "referenceId": "10",
             "jobDescription": "software engineer",
             "dateApplied": "2023-10-08T04:56:37.350Z",
-            "stage": "applied",
             "userApplied": "652236860421878ae712865e",
+            "stage": "applied",
             "__v": 0
         }]
         setJobsApplied(example)
     })
 	return (
-		<div>
+        <>
 			<NavBar />
-			<SideBar jobsApplied={jobsApplied} />
-			<JobList jobsApplied={jobsApplied} />
+		<div className="flex flex-row">
+			<SideBar  jobsApplied={jobsApplied} />
+			<JobList className="jobtable" jobsApplied={jobsApplied} />
 		</div>
+        </>
 	)	
 }

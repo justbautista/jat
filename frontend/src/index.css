@@ -2,16 +2,10 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@font-face {
-  font-family: 'Young Serif';
-  src: url('path/to/youngserif-regular.woff2') format('woff2'),
-       url('path/to/youngserif-regular.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
+@import url('https://fonts.cdnfonts.com/css/overused-grotesk');
 
 body {
-    font-family: 'Young Serif', serif;
+  font-family: 'Overused Grotesk', sans-serif;
     background-color: #dedee3;
     height : 100vh;
 }
@@ -36,5 +30,25 @@ hr{
     border-color: #000000;
     border-radius: 5px;
     background-color: #B8B8B8;
+    margin-left: 2rem;
+    height: 100%;
+  overflow: auto;
+  flex-shrink: 0;
+  margin-right: 3rem;
   }
   
+  .jobtable {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td {
+    border: 1px solid #000000;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }

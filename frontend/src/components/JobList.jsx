@@ -20,7 +20,7 @@ export default function JobList({ jobsApplied }) {
 							companyName={job["companyName"]}
 							jobTitle={job["jobTitle"]}
 							stage={job["stage"]}
-							dateApplied={job["dateApplied"]}
+							dateApplied={job["dateApplied"].split("T")[0]}
 							jobDescription={job["jobDescription"]}
 						/>
 					))
