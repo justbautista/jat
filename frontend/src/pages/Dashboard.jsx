@@ -11,6 +11,8 @@ export default function Dashboard() {
 	const [jobsApplied, setJobsApplied] = useState([])
 	const [userExist, setUserExist] = useState(false)
 	const [userData, setUserData] = useState()
+	const [changedStage, setChangedStage] = useState(false);
+	console.log(userData);
 	const [timeline, setTimeline] = useState()
 	const updateJobStatus = async (state) => {
 		try {
@@ -51,11 +53,11 @@ export default function Dashboard() {
 			}
 		}
 
-		checkUser()
-	}, [])
+    checkUser();
+  }, []);
 
-	useEffect(() => {
-		if (!userExist) return
+  useEffect(() => {
+    if (!userExist) return;
 
 		const getJobsApplied = async () => {
 			try {
@@ -63,7 +65,6 @@ export default function Dashboard() {
 					id: userData._id,
 				})
 				setJobsApplied(response.data)
-
 				try{
 					const calres = await api.post("/api/users/timeline",{
 						id: userData._id,
@@ -78,15 +79,17 @@ export default function Dashboard() {
 			}
 		}
 
-		getJobsApplied()
-	}, [userExist])
+    getJobsApplied();
+  }, [userExist]);
 
 	return (
 		<>
 			<NavBar />
 
 			<div className="flex flex-row">
-				<div><h1>
+				<SideBar jobsApplied={jobsApplied} />
+				<JobList className="jobtable" jobsApplied={jobsApplied} />
+				<h1>
 					Longest Streak:{" "}
 					{userData && userData.longestStreak
 						? userData.longestStreak
@@ -97,9 +100,9 @@ export default function Dashboard() {
 						? userData.todayStreak
 						: 0}
 					/{userData && userData.dailyLimit}
-				</h1></div>
+				</h1>
 				<SideBar jobsApplied={jobsApplied} />
-				<JobList className="jobtable" jobsApplied={jobsApplied} />
+				<JobList jobsApplied={jobsApplied} />
 				<Chart
       chartType="Calendar"
       width="100%"
@@ -107,8 +110,6 @@ export default function Dashboard() {
       data={timeline}
       options={{title: "Your Job Application Calender"}}
     />
-				{/* <SideBar jobsApplied={jobsApplied} />
-				<JobList jobsApplied={jobsApplied} /> */}
 			</div>
 		</>
 	)
