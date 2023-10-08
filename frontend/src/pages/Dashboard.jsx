@@ -87,8 +87,6 @@ export default function Dashboard() {
 			<NavBar />
 
 			<div className="flex flex-row">
-				<SideBar jobsApplied={jobsApplied} />
-				<JobList className="jobtable" jobsApplied={jobsApplied} />
 				<h1>
 					Longest Streak:{" "}
 					{userData && userData.longestStreak
