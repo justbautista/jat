@@ -1,11 +1,10 @@
 import { useAuth0 } from "@auth0/auth0-react"
 import { useEffect, useState } from "react"
 
-export default function SideBar(jobsApplied) {
+export default function SideBar({ jobsApplied }) {
     const { user } = useAuth0()
     const [stats, setStats] = useState({})
     console.log(jobsApplied)
-
     useEffect(() => {
         const getStats = () => {
             let countingJobs = {
@@ -14,18 +13,18 @@ export default function SideBar(jobsApplied) {
                 "accepted": 0,
                 "rejected": 0,
             }
-            
-            if (jobsApplied["jobsApplied"]) {
+
+            if (jobsApplied.length === 0) {
                 setStats(countingJobs)
                 return
             }
 
             for (const job of jobsApplied) {
-                if (job["jobsApplied"]["stage"] === "applied") {
+                if (job["stage"] === "applied") {
                     countingJobs["applied"]++
-                } else if (job["jobsApplied"]["stage"] === "accepted") {
+                } else if (job["stage"] === "accepted") {
                     countingJobs["accepted"]++
-                } else if (job["jobsApplied"]["stage"] === "rejected") {
+                } else if (job["stage"] === "rejected") {
                     countingJobs["rejected"]++
                 } else {
                     countingJobs["interviewing"]++

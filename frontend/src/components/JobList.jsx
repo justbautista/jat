@@ -1,10 +1,10 @@
 import Job from "./Job"
 
-export default function JobList(jobsApplied) {
-    
+export default function JobList({ jobsApplied }) {
+    console.log(jobsApplied)
 	return (
 		<div>
-			{jobsApplied["jobsApplied"] ? (
+			{jobsApplied.length > 0 ? (
 				jobsApplied.map((job) => {
 					const jobObject = {
 						"companyName": job["companyName"],
