@@ -10,6 +10,7 @@ export default function Dashboard() {
   const [jobsApplied, setJobsApplied] = useState([]);
   const [userExist, setUserExist] = useState(false);
   const [userData, setUserData] = useState();
+  const [changedStage, setChangedStage] = useState(false);
   console.log(userData);
   const updateJobStatus = async (state) => {
     try {
@@ -85,10 +86,11 @@ export default function Dashboard() {
         {userData && userData.todayStreak ? userData.todayStreak : 0}/
         {userData && userData.dailyLimit}
       </h1>
-      <SideBar jobsApplied={jobsApplied} />
+      <SideBar jobsApplied={jobsApplied} changedStage={changedStage} />
       <JobList
         jobsApplied={jobsApplied}
         updateJobStatus={updateJobStatus}
+        setChangedStage={setChangedStage}
         // setJobsApplied={setJobsApplied}
       />
       {/* </div> */}

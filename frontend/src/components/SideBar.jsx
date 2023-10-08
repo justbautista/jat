@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react"
 import { useEffect, useState } from "react"
 
-export default function SideBar({ jobsApplied }) {
+export default function SideBar({ jobsApplied, changedStage }) {
 	const { user } = useAuth0()
 	const [stats, setStats] = useState({})
 
@@ -34,7 +34,7 @@ export default function SideBar({ jobsApplied }) {
 		}
 
 		getStats()
-	}, [jobsApplied])
+	}, [jobsApplied, changedStage])
 
 	return (
 		<div className="sidebar">
