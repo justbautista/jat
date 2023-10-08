@@ -11,7 +11,6 @@ export default function Dashboard() {
 	const [jobsApplied, setJobsApplied] = useState([])
 	const [userExist, setUserExist] = useState(false)
 	const [userData, setUserData] = useState()
-	const [changedStage, setChangedStage] = useState(false);
 	console.log(userData);
 	const [timeline, setTimeline] = useState()
 	const updateJobStatus = async (state) => {
@@ -35,7 +34,7 @@ export default function Dashboard() {
 				})
 				setUserExist(true)
 				setUserData(response.data)
-                localStorage.setItem("user", user)
+                // localStorage.setItem("user", user)
 			} catch (err) {
 				//Pull up form
 				try {
@@ -93,7 +92,7 @@ export default function Dashboard() {
 
 			<div className="flex flex-col">
 				<SideBar jobsApplied={jobsApplied} />
-                <JobList className="jobtable" jobsApplied={jobsApplied} />
+                <JobList className="jobtable" jobsApplied={jobsApplied} setJobsApplied={setJobsApplied} />
 				<h1>
 					Longest Streak:{" "}
 					{userData && userData.longestStreak
