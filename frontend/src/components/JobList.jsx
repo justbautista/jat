@@ -7,18 +7,25 @@ export default function JobList({ jobsApplied, updateJobStatus }) {
       <table className="table-auto">
         <thead>
           <tr>
-            <th>Company Name</th>
-            <th>Job Title</th>
-            <th>Stage</th>
-            <th>Date Applied</th>
-            <th>Job Description</th>
+            
           </tr>
         </thead>
         <tbody>
-          <div className="bg-slate-600 w-[400px] h-10 rounded-t-md flex justify-center items-center">
-            Job Postings
+          <div className="bg-black w-[1000px] h-10 rounded-t-md flex justify-center items-center text-white">
+            Applied Jobs
           </div>
-          <div className="bg-slate-400 w-[400px] h-80 overflow-y-auto scrollbar-small autofill rounded-b-md">
+          <div className="bg-gray-500 w-[1000px] h-fit overflow-y-auto scrollbar-small autofill rounded-b-md mb-24">
+          <div className="flex justify-center">
+  <table className="border-collapse w-full">
+    <thead>
+        <th className="px-4 py-2 border">Company</th>
+        <th className="px-4 py-2 border">Job Title</th>
+        {/* <th className="px-4 py-2 border">Current Stage</th> */}
+        <th className="px-4 py-2 border">Date Applied</th>
+        <th className="px-4 py-2 border">Job Description</th>
+        <th className="px-4 py-2 border">Current state (Click to update)  </th>
+    </thead>
+    <tbody>
             {jobsApplied.length > 0 ? (
               jobsApplied.map((job) => (
                 <Job
@@ -36,6 +43,9 @@ export default function JobList({ jobsApplied, updateJobStatus }) {
             ) : (
               <p>No Jobs...</p>
             )}
+</tbody>
+</table>
+</div>
           </div>
         </tbody>
       </table>

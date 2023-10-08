@@ -35,7 +35,7 @@ export default function Dashboard() {
 				})
 				setUserExist(true)
 				setUserData(response.data)
-                // localStorage.setItem("user", user)
+				// localStorage.setItem("user", user)
 			} catch (err) {
 				//Pull up form
 				try {
@@ -54,11 +54,11 @@ export default function Dashboard() {
 			}
 		}
 
-    checkUser();
-  }, []);
+		checkUser();
+	}, []);
 
-  useEffect(() => {
-    if (!userExist) return;
+	useEffect(() => {
+		if (!userExist) return;
 
 		const getJobsApplied = async () => {
 			try {
@@ -66,17 +66,17 @@ export default function Dashboard() {
 					id: userData._id,
 				})
 				setJobsApplied(response.data)
-				try{
-					const calres = await api.post("/api/users/timeline",{
+				try {
+					const calres = await api.post("/api/users/timeline", {
 						id: userData._id,
 					})
 					var ttt = calres.data.cal
-					for (let i =1 ; i<ttt.length ;i++){
-						ttt[i][0]=new Date(ttt[i][0])
+					for (let i = 1; i < ttt.length; i++) {
+						ttt[i][0] = new Date(ttt[i][0])
 					}
 					console.log(ttt)
 					setTimeline(ttt)
-				} catch(e){
+				} catch (e) {
 					console.error(e)
 				}
 			} catch (err) {
@@ -84,36 +84,39 @@ export default function Dashboard() {
 			}
 		}
 
-    getJobsApplied();
-  }, [userExist]);
+		getJobsApplied();
+	}, [userExist]);
 
 	return (
 		<>
 			<NavBar />
+			<div className="flex flex-row mb-16">
+				<div style={{width:"100%" ,textAlign:"center"}}>
+					<h1>Longest Streak: {userData && userData.longestStreak ? userData.longestStreak : 0}</h1>
+				</div>
+				<div style={{width:"100%" ,textAlign:"center"}}>
+					<h1> Current Streak: {userData && userData.streaks ? userData.streaks : 0}</h1>
+				</div>
+				<div style={{width:"100%" ,textAlign:"center"}}>
+					<h1> {userData && userData.todayStreak ? userData.todayStreak : 0}/{userData && userData.dailyLimit}</h1>
+				</div>
+</div>
+			{/* this is the streak counter */}
 
-			<div className="flex flex-col">
-				<SideBar jobsApplied={jobsApplied} />
-                <JobList className="jobtable" jobsApplied={jobsApplied} />
-				<h1>
-					Longest Streak:{" "}
-					{userData && userData.longestStreak
-						? userData.longestStreak
-						: 0}
-					, Current Streak:{" "}
-					{userData && userData.streaks ? userData.streaks : 0},{" "}
-					{userData && userData.todayStreak
-						? userData.todayStreak
-						: 0}
-					/{userData && userData.dailyLimit}
-				</h1>
-				<Chart
-      chartType="Calendar"
-      width="100%"
-      height="400px"
-      data={timeline}
-      options={{title: "Your Job Application Calendar"}}
-    />
+
+
+			<div className="flex flex-row justify-center items-center">
+				<div className="flex flex-row justify-center w-full">
+					<Chart
+						chartType="Calendar"
+						width="fit-content"
+						height="400px"
+						data={timeline}
+						options={{ title: "Your Job Application Calendar" }}
+					/>
+				<JobList className="jobtable" jobsApplied={jobsApplied} />
+				</div>
 			</div>
 		</>
-	)
+			)
 }
