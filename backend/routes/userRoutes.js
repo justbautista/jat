@@ -9,6 +9,6 @@ const {
 router.post("/register", registerUser);
 router.post("/addJob", addJobs);
 // router.route("/jobs").get(getJobs).post(addJobs).put(changeJobStatus);
-router.get("/jobs/stats", JobStats);
+// router.get("/jobs/stats", JobStats);
 router.post("/timeline", generateStreakCalender)
 module.exports = router;
