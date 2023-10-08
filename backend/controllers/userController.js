@@ -106,7 +106,7 @@ const generateStreakCalender = async (req, res)=>{
     jobApplication = [];
     for (let j of job) {
       let d = new Date(j.dateApplied);
-      if (jobApplication[key]) {
+      if (jobApplication[d]) {
         jobApplication[d].push(j);
       } else {
         jobApplication[d] = [j];
