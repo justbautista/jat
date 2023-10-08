@@ -8,12 +8,33 @@ import JobList from "../components/JobList"
 export default function Dashboard() {
 	const { user } = useAuth0()
 	const [jobsApplied, setJobsApplied] = useState([])
+	const [userExist, setUserExist] = useState(false)
+    const [userData, setUserData] = useState()
 
 	useEffect(() => {
+		const checkUser = async () => {
+            try {
+                const response = await api.post("/api/users/", {
+                    email: user.email,
+                })
+                setUserExist(true)
+                setUserData(response.data)
+            } catch (err) {
+                // pull up form
+                console.error(err)
+            }
+		}
+
+        checkUser()
+	}, [])
+
+	useEffect(() => {
+        if (!userExist) return
+
 		const getJobsApplied = async () => {
 			try {
-				const response = await api.post("/api/users/jobs", {
-					email: user.email,
+				const response = await api.post("/api/users/getJobsByUserId", {
+					id: userData._id 
 				})
 				setJobsApplied(response.data)
 			} catch (err) {
@@ -21,8 +42,8 @@ export default function Dashboard() {
 			}
 		}
 
-		setJobsApplied(getJobsApplied)
-	}, [])
+		getJobsApplied()
+	}, [userExist])
 
 	return (
 		<div>
