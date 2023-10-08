@@ -11,19 +11,19 @@ export default function Dashboard() {
 	const [userExist, setUserExist] = useState(false)
     const [userData, setUserData] = useState()
 
-	// useEffect(() => {
-	// 	const checkUser = async () => {
-    //         try {
-    //             const response = await api.post("/api/users/", {
-    //                 email: user.email,
-    //             })
-    //             setUserExist(true)
-    //             setUserData(response.data)
-    //         } catch (err) {
-    //             // pull up form
-    //             console.error(err)
-    //         }
-	// 	}
+	useEffect(() => {
+		const checkUser = async () => {
+            try {
+                const response = await api.post("/api/users/", {
+                    email: user.email,
+                })
+                setUserExist(true)
+                setUserData(response.data)
+            } catch (err) {
+                // pull up form
+                console.error(err)
+            }
+		}
 
     //     checkUser()
 	// }, [])
