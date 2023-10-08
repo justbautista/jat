@@ -1,48 +1,48 @@
 const express = require("express");
 const jobRoutes = express.Router();
-const puppeteer = require("puppeteer");
-const axios = require("axios");
+// const puppeteer = require("puppeteer");
+// const axios = require("axios");
 const jobPostings = require("../models/jobPostings");
 jobRoutes.get("/", async function (req, res) {
   res.send("Hey inside job route");
 });
 jobRoutes.get("/list_jobs", async function (req, res) {
-  const browser = await puppeteer.launch();
+//   const browser = await puppeteer.launch();
 
-  // Open a new tab
-  const page = await browser.newPage();
+//   // Open a new tab
+//   const page = await browser.newPage();
 
-  // Visit the page and wait until network connections are completed
-  await page.goto(
-    "https://www.ziprecruiter.com/jobs-search?search=software-developer&location=NY",
-    { waitUntil: "networkidle2" }
-  );
-  const pa = await page.content();
+//   // Visit the page and wait until network connections are completed
+//   await page.goto(
+//     "https://www.ziprecruiter.com/jobs-search?search=software-developer&location=NY",
+//     { waitUntil: "networkidle2" }
+//   );
+//   const pa = await page.content();
 
-  // const pa = await page.evaluate(() => {
-  //     const class_name = 'PuiEXc'; // Replace with the actual class name you want to target
-  // const elements = document.querySelectorAll(`.${class_name}`);
-  // var final = ""
+//   // const pa = await page.evaluate(() => {
+//   //     const class_name = 'PuiEXc'; // Replace with the actual class name you want to target
+//   // const elements = document.querySelectorAll(`.${class_name}`);
+//   // var final = ""
 
-  // for(let e of elements){
-  // 	final+= e
-  // }
+//   // for(let e of elements){
+//   // 	final+= e
+//   // }
 
-  // return final
-  // });
-  console.log(pa);
-  // var data = pa.matchAll(/window.mosaic.providerData\["mosaic-provider-jobcards"\]=(\{.+?\});/g);
-  // console.log(JSON.stringify(data))
-  // const elements = await page.$$('[class="PuiEXc"]');
+//   // return final
+//   // });
+//   console.log(pa);
+//   // var data = pa.matchAll(/window.mosaic.providerData\["mosaic-provider-jobcards"\]=(\{.+?\});/g);
+//   // console.log(JSON.stringify(data))
+//   // const elements = await page.$$('[class="PuiEXc"]');
 
-  // console.log(elements)
-  // Don't forget to close the browser instance to clean up the memory
-  await browser.close();
+//   // console.log(elements)
+//   // Don't forget to close the browser instance to clean up the memory
+//   await browser.close();
 
-  // Print the results
-  // titles.forEach(title => console.log(`- ${title}`))
+//   // Print the results
+//   // titles.forEach(title => console.log(`- ${title}`))
 
-  res.end();
+//   res.end();
 });
 
 jobRoutes.get("/list_synthetic_jobs", async function (req, res) {

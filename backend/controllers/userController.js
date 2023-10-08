@@ -95,8 +95,20 @@ const getJobsById = async (req, res) => {
 const generateStreakCalender = async (req, res)=>{
   const { _id } = req.body;
   try{
-    const job = await UserJobs.find({userApplied:id});
-    res.status(200).json(job); 
+    const job = await UserJobs.find({userApplied:_id});
+    jobApplication = {}
+    for (let j of job){
+      let d = new Date(j.dateApplied)
+      let key = d.toJSON().split('T')[0]
+      if(jobApplication[key]){
+        jobApplication[key].push(j)
+      }else{
+        jobApplication[key] = [j]
+      }
+
+    }
+
+    res.status(200).send(jobApplication)
   }catch(error) {
     res.status(404).json({"Error":"Error with the database, Cannot find jobs."});
   }
@@ -189,4 +201,4 @@ const changeJobStatus = async (req, res) => {
 //   }
 // };
 
-module.exports = { registerUser, getJobs, addJobs, changeJobStatus, JobStats };
+module.exports = { registerUser, addJobs, changeJobStatus, generateStreakCalender };
