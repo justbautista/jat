@@ -7,8 +7,19 @@
 
 body {
     font-family: 'Anton', sans-serif;
-    background-color: #f8f8ff;
+    background-color: #dedee3;
     height : 100vh;
 }
 
 
+hr{
+    display:block;
+    background: -webkit-gradient(linear, 0 0, 100% 0, from(transparent), to(transparent), 
+    color-stop(50%, #000000));
+    height: 3px;
+    border: none;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }

@@ -3,7 +3,7 @@ import JATlogo from "../../images/JAT.png"
 
 function Footer() {
   return (
-    <footer className="bg-zinc-500  fixed-bottom-0 w-full ">
+    <footer className="bg-zinc-400  fixed-bottom-0 w-full ">
             <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <a href="/" className="flex items-center mb-4 sm:mb-0">
