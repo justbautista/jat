@@ -3,8 +3,7 @@
 // jobs applied - array of ids and when apply
 const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
-  _id: { type: String, unique: true },
-  username: {
+  name: {
     type: String,
     required: true,
     unique: true,
@@ -14,11 +13,13 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  age: {
-    type: Number,
-  },
   preferences: [{ type: String }],
   jobsApplied: [{ type: mongoose.Schema.Types.ObjectId, ref: "UserJobs" }],
+  recentApplicationDate: { type: Date },
+  streaks: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const User = mongoose.model("User", userSchema);

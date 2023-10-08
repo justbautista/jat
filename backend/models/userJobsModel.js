@@ -1,16 +1,18 @@
-const mongoose = require("monogoose");
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-const userJobsSchema = new mongoose.Schema(
-  {
-    _id: { type: String },
-    applied_date: { type: Date },
-    userApplied: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+const userJobsSchema = new mongoose.Schema({
+  date: { type: Date },
+  companyName: { type: String },
+  jobTitle: { type: String },
+  jobDescription: { type: String },
+  // stages are applied, interviewing, accepted, rejected
+  stage: {
+    type: String,
+    enum: ["applied", "interviewing", "accepted", "rejected"],
+    required: true,
   },
-  {
-    timestamps: true,
-  }
-);
+  userApplied: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+});
 
 const UserJobs = mongoose.model("UserJobs", userJobsSchema);
 
