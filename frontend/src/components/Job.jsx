@@ -8,7 +8,7 @@ export default function Job({
   stage,
   dateApplied,
   jobDescription,
-  setChangedStage
+  setJobsApplied
   //   updateJobStatus,
 }) {
   const [dropdownStatus, setDropdownStatus] = useState(false);
@@ -27,8 +27,7 @@ export default function Job({
 
       // setUserData(response.data);
       setCurrStage(state);
-      setChangedStage(prev => !prev);
-      // setJobsApplied(response.data);
+      setJobsApplied(response.data);
       // console.log(userData);
     } catch (err) {
       console.error(err);
