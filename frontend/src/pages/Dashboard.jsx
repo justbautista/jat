@@ -89,8 +89,6 @@ export default function Dashboard() {
 						: 0}
 					/{userData && userData.dailyLimit}
 				</h1>
-				<SideBar jobsApplied={jobsApplied} />
-				<JobList jobsApplied={jobsApplied} />
 			</div>
 		</>
 	)
