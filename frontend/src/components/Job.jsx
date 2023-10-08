@@ -74,12 +74,6 @@ export default function Job({
               </button>
               <button
                 className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                onClick={() => updateJobStatus("Orejected")}
-              >
-                Offer
-              </button>
-              <button
-                className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
                 onClick={() => updateJobStatus("Rejected")}
               >
                 Rejected

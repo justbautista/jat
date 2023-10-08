@@ -11,8 +11,14 @@ export default function Dashboard() {
 	const [jobsApplied, setJobsApplied] = useState([])
 	const [userExist, setUserExist] = useState(false)
 	const [userData, setUserData] = useState()
-	console.log(userData);
+	const [dailyLimit, setDailyLimit] = useState(5)
 	const [timeline, setTimeline] = useState()
+	const setDailyLimits = async (limit) => {
+		setDailyLimit(limit)
+		api.put("/api/users/", {
+			email: user.email, preferences: userData.preferences, school: userData.school, dailyLimit: limit
+		})
+	}
 	const updateJobStatus = async (state) => {
 		try {
 			const response = await api.put("/api/users/jobs", {
@@ -21,6 +27,8 @@ export default function Dashboard() {
 			})
 			setUserExist(true)
 			setUserData(response.data)
+			console.log(response.data.dailyLimit)
+			setDailyLimit(parseInt(response.data.dailyLimit))
 		} catch (err) {
 			console.error(err)
 		}
@@ -34,6 +42,7 @@ export default function Dashboard() {
 				})
 				setUserExist(true)
 				setUserData(response.data)
+				setDailyLimit(parseInt(response.data.dailyLimit))
 				// localStorage.setItem("user", user)
 			} catch (err) {
 				//Pull up form
@@ -89,33 +98,37 @@ export default function Dashboard() {
 	return (
 		<>
 			<NavBar />
+
+			<div className="flex flex-row mb-16 ml-4 align-middle">
+				<span>I will complete </span><input type="number" value={dailyLimit} className="py-1 px-1 w-16 h-8 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500" placeholder="Goal" onChange={(e) => setDailyLimits(e.target.value)}></input><span> Job Applications Per Day</span>
+			</div>
 			<div className="flex flex-row mb-16">
-				<div style={{width:"100%" ,textAlign:"center"}}>
+				<div style={{ width: "100%", textAlign: "center" }}>
 					<h1>Longest Streak: {userData && userData.longestStreak ? userData.longestStreak : 0}</h1>
 				</div>
-				<div style={{width:"100%" ,textAlign:"center"}}>
+				<div style={{ width: "100%", textAlign: "center" }}>
 					<h1> Current Streak: {userData && userData.streaks ? userData.streaks : 0}</h1>
 				</div>
-				<div style={{width:"100%" ,textAlign:"center"}}>
+				<div style={{ width: "100%", textAlign: "center" }}>
 					<h1> {userData && userData.todayStreak ? userData.todayStreak : 0}/{userData && userData.dailyLimit}</h1>
 				</div>
-</div>
+			</div>
 			{/* this is the streak counter */}
 
 
 
 			<div className="flex flex-row justify-center items-center">
 				<div className="flex flex-row justify-center w-full">
-					<Chart
+					{/* <Chart
 						chartType="Calendar"
 						width="fit-content"
 						height="400px"
 						data={timeline}
 						options={{ title: "Your Job Application Calendar" }}
-					/>
-				<JobList className="jobtable" jobsApplied={jobsApplied} />
+					/> */}
+					<JobList className="jobtable" jobsApplied={jobsApplied} />
 				</div>
 			</div>
 		</>
-			)
+	)
 }
