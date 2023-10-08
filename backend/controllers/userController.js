@@ -13,7 +13,7 @@ const registerUser = async (req, res) => {
       email,
       preferences,
       school,
-      dailyLimit
+      dailyLimit,
     });
     res.status(200).json(user);
   } catch (error) {
@@ -26,46 +26,53 @@ const registerUser = async (req, res) => {
 // @ access Public
 const updateUser = async (req, res) => {
   const { email, preferences, school, dailyLimit } = req.body;
-  const filter = {email}
-  const update = {preferences, school, dailyLimit};
+  const filter = { email };
+  const update = { preferences, school, dailyLimit };
   try {
-    const user = await User.findOneAndUpdate(filter, update, {new: true});
+    const user = await User.findOneAndUpdate(filter, update, { new: true });
     res.status(200).json(user);
   } catch (error) {
-    res.status(404).json({"Error":"Error with the database, Please try logging in again."});
+    res
+      .status(404)
+      .json({ Error: "Error with the database, Please try logging in again." });
   }
 };
 
 const getUser = async (req, res) => {
   const { email } = req.body;
-  try{
-    const user = await User.findOne({email: email});
-    res.status(200).json(user); 
-  }catch(error) {
-    res.status(404).json({"Error":"Error with the database, Please try logging in again."});
+  try {
+    const user = await User.findOne({ email: email });
+    res.status(200).json(user);
+  } catch (error) {
+    res
+      .status(404)
+      .json({ Error: "Error with the database, Please try logging in again." });
   }
-}
+};
 
 const getJobsByUserId = async (req, res) => {
   const { id } = req.body;
-  try{
-    const job = await UserJobs.find({userApplied:id});
-    res.status(200).json(job); 
-  }catch(error) {
-    res.status(404).json({"Error":"Error with the database, Cannot find jobs."});
+  try {
+    const job = await UserJobs.find({ userApplied: id });
+    res.status(200).json(job);
+  } catch (error) {
+    res
+      .status(404)
+      .json({ Error: "Error with the database, Cannot find jobs." });
   }
-}
+};
 
 const getJobsById = async (req, res) => {
   const { id } = req.body;
-  try{
-    const job = await UserJobs.find({_id:id});
-    res.status(200).json(job); 
-  }catch(error) {
-    res.status(404).json({"Error":"Error with the database, Cannot find jobs."});
+  try {
+    const job = await UserJobs.find({ _id: id });
+    res.status(200).json(job);
+  } catch (error) {
+    res
+      .status(404)
+      .json({ Error: "Error with the database, Cannot find jobs." });
   }
-}
-
+};
 
 // @ desc Get all user's jobs
 // @ route GET /api/users/jobs
@@ -83,9 +90,43 @@ const getJobsById = async (req, res) => {
 // @ desc Add a job for the user
 // @ route POST /api/users/jobs
 // @ access Public
+
+
+const generateStreakCalender = async (req, res)=>{
+  const { id } = req.body;
+  try {
+    const job = await UserJobs.find({ userApplied: id });
+    console.log(job);
+    jobApplication = {};
+    for (let j of job) {
+      let d = new Date(j.dateApplied);
+      let key = d.toJSON().split("T")[0];
+      if (jobApplication[key]) {
+        jobApplication[key].push(j);
+      } else {
+        jobApplication[key] = [j];
+      }
+    }
+
+    res.status(200).send(jobApplication);
+  } catch (error) {
+    res
+      .status(404)
+      .json({ Error: "Error with the database, Cannot find jobs." });
+  }
+}
+
 const addJobs = async (req, res) => {
   try {
-    const { id, companyName, jobTitle, jobDescription, postingDate, stage, referenceId } = req.body;
+    const {
+      id,
+      companyName,
+      jobTitle,
+      jobDescription,
+      postingDate,
+      stage,
+      referenceId,
+    } = req.body;
     const userApplied = await User.findOne({ _id: id });
     const newJob = await UserJobs.create({
       postingDate,
@@ -109,6 +150,30 @@ const addJobs = async (req, res) => {
     // } else {
     //   userApplied.streaks = 1;
     // }
+    let userDate = new Date(userApplied.today)
+    let curDate = new Date();
+    var diff = Math.abs(curDate.getTime() - userDate.getTime()) / 3600000;
+    if(diff<24){
+      userApplied.todayStreak = userApplied.todayStreak + 1
+    }
+    else{
+      if(userApplied.todayStreak >= userApplied.dailyLimit){
+        var newStreak = userApplied.streaks + 1
+        if(newStreak > userApplied.longestStreaks){
+          userApplied.longestStreaks = newStreak
+        }
+        if(diff < 48){
+          userApplied.streaks = newStreak
+        }else{
+          userApplied.streaks = 0
+        }
+      }else{
+        userApplied.streaks = 0
+      }
+      userApplied.today = new Date()
+      userApplied.todayStreak = 1
+
+    }
     userApplied.save();
     res.status(200).json(userApplied);
   } catch (error) {
@@ -123,7 +188,7 @@ const changeJobStatus = async (req, res) => {
   try {
     // const objectId = new mongoose.Types.ObjectId(_id);
     const job = await UserJobs.findOne({
-      _id
+      _id,
     });
     job.stage = stage;
     await job.save();
@@ -162,4 +227,13 @@ const changeJobStatus = async (req, res) => {
 //   }
 // };
 
-module.exports = { registerUser, getJobs, addJobs, changeJobStatus, JobStats };
+module.exports = {
+  registerUser,
+  updateUser,
+  getUser,
+  getJobsByUserId,
+  getJobsById,
+  addJobs,
+  changeJobStatus,
+  generateStreakCalender,
+};
