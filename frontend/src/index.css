@@ -24,4 +24,31 @@ hr{
     border-bottom-right-radius: 5px;
   }
 
-  
+  @layer utilities {
+    .autofill,
+        .autofill:hover,
+        .autofill:focus,
+        .autofill:active {
+            -webkit-transition-delay: 0s;
+            transition-delay: 0s;
+        }
+    .scrollbar-small::-webkit-scrollbar {
+        width: 10px;
+        height: 20px;
+    }
+
+    .scrollbar-small::-webkit-scrollbar-track {
+        border-radius: 100vh;
+        background: gray;
+    }
+
+    .scrollbar-small::-webkit-scrollbar-thumb {
+        background: rgb(75 85 99);
+        border-radius: 100vh;
+        border: 3px solid #f6f7ed;
+    }
+
+    .scrollbar-small::-webkit-scrollbar-thumb:hover {
+        background: rgb(107 114 128);
+    }
+}
