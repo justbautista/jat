@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 export default function SideBar(jobsApplied) {
     const { user } = useAuth0()
     const [stats, setStats] = useState({})
+    console.log(jobsApplied)
 
     useEffect(() => {
         const getStats = () => {
@@ -14,7 +15,7 @@ export default function SideBar(jobsApplied) {
                 "rejected": 0,
             }
             
-            if (jobsApplied) {
+            if (jobsApplied["jobsApplied"]) {
                 setStats(countingJobs)
                 return
             }
