@@ -1,7 +1,7 @@
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 
-function Home(){
+function About(){
     return(
     <>
         <NavBar />
@@ -15,4 +15,4 @@ function Home(){
     )
 }
 
-export default Home
+export default About
