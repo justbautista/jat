@@ -69,8 +69,12 @@ export default function Dashboard() {
 					const calres = await api.post("/api/users/timeline",{
 						id: userData._id,
 					})
-					console.log(calres.data.cal)
-					setTimeline(calres.data.cal)
+					var ttt = calres.data.cal
+					for (let i =1 ; i<ttt.length ;i++){
+						ttt[i][0]=new Date(ttt[i][0])
+					}
+					console.log(ttt)
+					setTimeline(ttt)
 				} catch(e){
 					console.error(e)
 				}
@@ -99,8 +103,6 @@ export default function Dashboard() {
 						: 0}
 					/{userData && userData.dailyLimit}
 				</h1>
-				<SideBar jobsApplied={jobsApplied} />
-				<JobList jobsApplied={jobsApplied} />
 				<Chart
       chartType="Calendar"
       width="100%"
