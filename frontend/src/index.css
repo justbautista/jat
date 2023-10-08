@@ -1,54 +1,58 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url("https://fonts.cdnfonts.com/css/overused-grotesk");
 
 body {
-    font-family: 'Anton', sans-serif;
-    background-color: #dedee3;
-    height : 100vh;
+  font-family: "Overused Grotesk", sans-serif;
+  background-color: #dedee3;
+  height: 100vh;
 }
 
+hr {
+  display: block;
+  background: -webkit-gradient(
+    linear,
+    0 0,
+    100% 0,
+    from(transparent),
+    to(transparent),
+    color-stop(50%, #000000)
+  );
+  height: 3px;
+  border: none;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
 
-hr{
-    display:block;
-    background: -webkit-gradient(linear, 0 0, 100% 0, from(transparent), to(transparent), 
-    color-stop(50%, #000000));
-    height: 3px;
-    border: none;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+@layer utilities {
+  .autofill,
+  .autofill:hover,
+  .autofill:focus,
+  .autofill:active {
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s;
+  }
+  .scrollbar-small::-webkit-scrollbar {
+    width: 10px;
+    height: 20px;
   }
 
-  @layer utilities {
-    .autofill,
-        .autofill:hover,
-        .autofill:focus,
-        .autofill:active {
-            -webkit-transition-delay: 0s;
-            transition-delay: 0s;
-        }
-    .scrollbar-small::-webkit-scrollbar {
-        width: 10px;
-        height: 20px;
-    }
+  .scrollbar-small::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: gray;
+  }
 
-    .scrollbar-small::-webkit-scrollbar-track {
-        border-radius: 100vh;
-        background: gray;
-    }
+  .scrollbar-small::-webkit-scrollbar-thumb {
+    background: rgb(75 85 99);
+    border-radius: 100vh;
+    border: 3px solid #f6f7ed;
+  }
 
-    .scrollbar-small::-webkit-scrollbar-thumb {
-        background: rgb(75 85 99);
-        border-radius: 100vh;
-        border: 3px solid #f6f7ed;
-    }
-
-    .scrollbar-small::-webkit-scrollbar-thumb:hover {
-        background: rgb(107 114 128);
-    }
+  .scrollbar-small::-webkit-scrollbar-thumb:hover {
+    background: rgb(107 114 128);
+  }
 }

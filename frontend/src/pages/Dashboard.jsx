@@ -1,16 +1,16 @@
-import NavBar from "../components/NavBar"
-import { useState, useEffect } from "react"
-import api from "../helpers/axiosConfig"
-import SideBar from "../components/SideBar"
-import { useAuth0 } from "@auth0/auth0-react"
-import JobList from "../components/JobList"
+import NavBar from "../components/NavBar";
+import { useState, useEffect } from "react";
+import api from "../helpers/axiosConfig";
+import SideBar from "../components/SideBar";
+import { useAuth0 } from "@auth0/auth0-react";
+import JobList from "../components/JobList";
 
 export default function Dashboard() {
-	const { user } = useAuth0()
-	const [jobsApplied, setJobsApplied] = useState([])
-	const [userExist, setUserExist] = useState(false)
-    const [userData, setUserData] = useState()
-	console.log(userData);
+  const { user } = useAuth0();
+  const [jobsApplied, setJobsApplied] = useState([]);
+  const [userExist, setUserExist] = useState(false);
+  const [userData, setUserData] = useState();
+  console.log(userData);
   const updateJobStatus = async (state) => {
     try {
       const response = await api.put("/api/users/jobs", {

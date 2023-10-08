@@ -37,7 +37,7 @@ export default function SideBar({ jobsApplied }) {
 	}, [jobsApplied])
 
 	return (
-		<div>
+		<div className="sidebar">
 			<p>{user.name}</p>
 			<p>Applied: {stats["applied"]}</p>
 			<p>Interviewing: {stats["interviewing"]}</p>
