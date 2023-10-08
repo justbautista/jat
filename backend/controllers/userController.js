@@ -150,6 +150,21 @@ const addJobs = async (req, res) => {
     // } else {
     //   userApplied.streaks = 1;
     // }
+    let userDate = new Date(userApplied.today)
+    let curDate = new Date();
+    var diff = Math.abs(curDate.getTime() - userDate.getTime()) / 3600000;
+    if(diff<24){
+      userApplied.todayStreak = userApplied.todayStreak + 1
+    }
+    else{
+      userApplied.today = new Date()
+      userApplied.todayStreak = 1
+      if(userApplied.streaks > userApplied.longestStreaks){
+        userApplied.longestStreaks = userApplied.streaks
+      }
+      userApplied.streaks = 0
+
+    }
     userApplied.save();
     res.status(200).json(userApplied);
   } catch (error) {

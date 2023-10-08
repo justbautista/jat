@@ -26,6 +26,13 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  longestStreaks: {
+    type: Number,
+    default: 0,
+  },
+  today:{type:Date},
+  todayStreak:{type:Number}
+
 });
 
 const User = mongoose.model("User", userSchema);
