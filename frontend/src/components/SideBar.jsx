@@ -13,7 +13,12 @@ export default function SideBar(jobsApplied) {
                 "accepted": 0,
                 "rejected": 0,
             }
-    
+            
+            if (jobsApplied) {
+                setStats(countingJobs)
+                return
+            }
+
             for (const job of jobsApplied) {
                 if (job["jobsApplied"]["stage"] === "applied") {
                     countingJobs["applied"]++
