@@ -7,32 +7,20 @@ import JobList from "../components/JobList"
 
 function Dashboard() {
     const { user } = useAuth0()
-    const [jobsApplied, setJobsApplied] = useState()
-
+    const [jobsApplied, setJobsApplied] = useState([]);
+    
     useEffect(() => {
-        // const getJobsApplied = async () => {
-        //     try {
-        //         const response = await api.post("/api/users/jobs", {
-        //             email: user.email
-        //         })
-        //         setJobsApplied(response.data)
-        //     } catch (err) {
-        //         console.error(err)
-        //     }
-        // }
-
-        // getJobsApplied()
-        const test = "diasodj"
-        setJobsApplied(test)
-        console.log(jobsApplied)
-    }, [user])
-	return (
-		<div>
-			<NavBar />
-			<SideBar jobsApplied={jobsApplied}/>
+        const test = "Hello World";
+        setJobsApplied([test]);
+      }, [user]);
+    
+    return (
+        <div>
+            <NavBar />
+            <SideBar jobsApplied={jobsApplied}/>
             <JobList jobsApplied={jobsApplied}/>
-		</div>
-	)
+        </div>
+    )
 }
 
 export default Dashboard

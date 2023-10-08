@@ -9,7 +9,7 @@ function NavBar() {
 	const { isAuthenticated } = useAuth0()
 
 	return (
-		<nav className="p-4">
+		<nav className="navbar p-4">
 			<div className="container mx-auto flex justify-between items-center ">
 				<a href="#">
 					<img src={JATlogo} alt="JAT logo" className="w-30 h-20" />
