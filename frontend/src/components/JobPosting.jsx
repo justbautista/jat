@@ -1,4 +1,8 @@
+import api from "../helpers/axiosConfig"
 export default function jobPosting({
+  callback,
+    job_id,
+    user_id,
     jobTitle,
     company,
     location,
@@ -10,8 +14,16 @@ export default function jobPosting({
     applicationDeadline,
 }) {
     const handleAddJob = () => {
-        // Add the job to a list of saved jobs
-        console.log(`Job ${jobTitle} added to saved jobs`);
+      api.post("/api/users/addJob", {
+        id: user_id,
+        companyName:company,
+        jobTitle:jobTitle,
+        jobDescription:jobDescription,
+        postingDate:postedDate,
+        stage:"applied",
+        referenceId:job_id
+      }).then(()=>callback())
+    
     };
     return (
         <div className="p-4 border-2 border-gray-400 rounded-lg mb-4 ml-4 mr-4">
