@@ -10,7 +10,6 @@ export default function Dashboard() {
 	const [jobsApplied, setJobsApplied] = useState([])
 	const [userExist, setUserExist] = useState(false)
     const [userData, setUserData] = useState()
-
 	useEffect(() => {
 		const checkUser = async () => {
             try {
@@ -20,9 +19,22 @@ export default function Dashboard() {
                 setUserExist(true)
                 setUserData(response.data)
             } catch (err) {
-                // pull up form
-                console.error(err)
-            }
+                  //Pull up form
+				try {
+					const response = await api.post("/api/users/register", {
+						name: user.name,
+						email:user.email,
+						school:"Rutgers",
+						dailyLimit:5
+					})
+					console.log(response.data)
+					setUserData(response.data)
+					setUserExist(true)
+				}catch(err) {
+					console.error(err)
+				}
+					console.error(err)
+				}
 		}
 
         checkUser()
